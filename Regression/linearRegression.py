@@ -1,55 +1,55 @@
+"""
+LINEAR REGRESSION with single variable  :- unsupervied learning
+                                        :-statical method
+                                        :-use for predictive analysis
+                                        :-prediction of continous ,real,numerical values
+                                        :-eg cost,price,age,sales,temp etc.
+
+"""
+
+
+
 
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Load your dataset (you can replace this with your own dataset)
+# For example, you can load a dataset from a CSV file:
+# df = pd.read_csv('your_dataset.csv')
+
+# Create synthetic data for demonstration purposes
+np.random.seed(0)
+X = 2 * np.random.rand(100, 1)  # Feature: Random values between 0 and 2
+y = 4 + 3 * X + np.random.randn(100, 1)  # Target: Linear relationship with some noise
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create a linear regression model
+model = LinearRegression()
+
+# Train the model on the training data
+model.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = model.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Squared Error: {mse:.2f}")
+print(f"R-squared: {r2:.2f}")
+
+# Visualize the results (for 1D data)
 import matplotlib.pyplot as plt
- 
-def estimate_coef(x, y):
-    # number of observations/points
-    n = np.size(x)
- 
-    # mean of x and y vector
-    m_x = np.mean(x)
-    m_y = np.mean(y)
- 
-    # calculating cross-deviation and deviation about x
-    SS_xy = np.sum(y*x) - n*m_y*m_x
-    SS_xx = np.sum(x*x) - n*m_x*m_x
- 
-    # calculating regression coefficients
-    b_1 = SS_xy / SS_xx
-    b_0 = m_y - b_1*m_x
- 
-    return (b_0, b_1)
- 
-def plot_regression_line(x, y, b):
-    # plotting the actual points as scatter plot
-    plt.scatter(x, y, color = "m",
-               marker = "o", s = 30)
- 
-    # predicted response vector
-    y_pred = b[0] + b[1]*x
- 
-    # plotting the regression line
-    plt.plot(x, y_pred, color = "g")
- 
-    # putting labels
-    plt.xlabel('x')
-    plt.ylabel('y')
- 
-    # function to show plot
-    plt.show()
- 
-def main():
-    # observations / data
-    x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    y = np.array([1, 3, 2, 5, 7, 8, 8, 9, 10, 12])
- 
-    # estimating coefficients
-    b = estimate_coef(x, y)
-    print("Estimated coefficients:\nb_0 = {}  \
-          \nb_1 = {}".format(b[0], b[1]))
- 
-    # plotting regression line
-    plot_regression_line(x, y, b)
- 
-if __name__ == "__main__":
-    main()
+
+plt.scatter(X_test, y_test, color='b', label='Actual')
+plt.plot(X_test, y_pred, color='r', label='Predicted')
+plt.legend()
+plt.xlabel('Feature')
+plt.ylabel('Price')
+plt.show()
