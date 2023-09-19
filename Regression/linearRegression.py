@@ -4,6 +4,7 @@ LINEAR REGRESSION with single variable  :- unsupervied learning
                                         :-use for predictive analysis
                                         :-prediction of continous ,real,numerical values
                                         :-eg cost,price,age,sales,temp etc.
+                                        :- y=mx+c+error
 
 """
 

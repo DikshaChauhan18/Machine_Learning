@@ -1,48 +1,41 @@
+"""
+POLYNOMIAL REGRESSION :- it is used when we have to show non linear relationship between 1
+ independent and dependent variable.
+                        :- it gives more flexible and curved relationships between the variables.
+                        :-general eq = y = b0 + b1*x + b2*x^2 + ... + bn*x^n + ε
+                        -> y= dependent x= independent var
+                        ->b0,b1,b2 =  are the coefficients of the polynomial terms
+                        ->n= degree of poly
+                        ->ε = error, accounting for random noise.
+"""
 
-# Visualising the Polynomial Regression results
 
-# Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
- 
-# Importing the dataset
-datas = pd.read_csv('data.csv')
-datas
-
-
-X = datas.iloc[:, 1:2].values
-y = datas.iloc[:, 2].values
-
-
-# Features and the target variables
-X = datas.iloc[:, 1:2].values
-y = datas.iloc[:, 2].values
- 
-# Fitting Linear Regression to the dataset
 from sklearn.linear_model import LinearRegression
-lin = LinearRegression()
- 
-lin.fit(X, y)
-
-
-# Fitting Polynomial Regression to the dataset
 from sklearn.preprocessing import PolynomialFeatures
- 
-poly = PolynomialFeatures(degree=4)
+
+# Create sample data
+X = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).reshape(-1, 1)
+y = np.array([1, 4, 9, 16, 25, 36, 49, 64, 81, 100])
+
+# Create polynomial features
+degree = 2  # Degree of the polynomial
+poly = PolynomialFeatures(degree=degree)
 X_poly = poly.fit_transform(X)
- 
-poly.fit(X_poly, y)
-lin2 = LinearRegression()
-lin2.fit(X_poly, y)
 
+# Fit a linear regression model to the transformed features
+model = LinearRegression()
+model.fit(X_poly, y)
 
-plt.scatter(X, y, color='blue')
- 
-plt.plot(X, lin2.predict(poly.fit_transform(X)),
-         color='red')
-plt.title('Polynomial Regression')
-plt.xlabel('Temperature')
-plt.ylabel('Pressure')
- 
+# Predict values using the trained model
+y_pred = model.predict(X_poly)
+
+# Plot the original data and the polynomial regression curve
+plt.scatter(X, y, label='Data')
+plt.plot(X, y_pred, color='red', label='Polynomial Regression')
+plt.legend()
+plt.xlabel('X')
+plt.ylabel('y')
+plt.title(f'Polynomial Regression (Degree {degree})')
 plt.show()

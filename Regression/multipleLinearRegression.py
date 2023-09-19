@@ -1,6 +1,17 @@
 """
 LINEAR REGRESSION WITH MULTIPLE VALUES
-data prediction is dependent on multiple values
+                data prediction is dependent on multiple values
+                :-eq = Y = b0 + b1*X1 + b2*X2 + b3*X3 + ... + bn*Xn + ε
+                :- more than 1 independent var == X1,X,2,X3.....
+                :- use to to find the values of the coefficients (b0, b1, b2, ..., bn)
+                 that result in the best fit to the observed data.
+                 :-using ordinary least squares (OLS) regression
+                 :- ols=  often referred to simply as "linear regression," 
+                 the sum of squared differences between the predicted and actual values is minimized.
+
+                 :-"linear regression" refers to the general class of models used to describe
+                  linear relationships between variables, "OLS regression" specifically refers
+                   to the method for estimating the coefficients of a linear regression model. 
 
 """
 # Step 1: Import necessary libraries
